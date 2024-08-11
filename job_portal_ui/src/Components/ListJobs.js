@@ -41,8 +41,8 @@ const ListJob = ()=>{
             { field: 'department', headerName: 'Department',  },
             { field: 'assigned_recruiter',headerName: 'Assigned Recruiter',},
             { field: 'hiring_manager',headerName: 'Hiring Manager',},
-            { field: 'date_opened', headerName: 'Posted Date', valueFormatter : (value)=>moment(value).format('DD/MM/YY')},
-            { field: 'closing_date',headerName: 'Expiry Date', valueFormatter : (value)=>moment(value).format('DD/MM/YY')},
+            { field: 'date_opened', headerName: 'Posted Date', valueFormatter : (value)=>moment(value, 'DD-MM-YYYY').format('DD/MM/YY')},
+            { field: 'closing_date',headerName: 'Expiry Date', valueFormatter : (value)=>moment(value, 'DD-MM-YYYY').format('DD/MM/YY')},
             { field: 'current_status', headerName: 'Status', valueFormatter : (value)=>to_readable_str(value) }]
 
 
@@ -139,10 +139,10 @@ const ListJob = ()=>{
             if (key === "DateRange") {
               const { fromDate, toDate } = sideFilterState[key];
               if (fromDate) {
-                new_copy_data = new_copy_data.filter(val => moment(val.date_opened).isSameOrAfter(fromDate));
+                new_copy_data = new_copy_data.filter(val => moment(val.date_opened, 'DD-MM-YYYY').isSameOrAfter(moment(fromDate, 'DD-MM-YYYY')));
               }
               if (toDate) {
-                new_copy_data = new_copy_data.filter(val => moment(val.closing_date).isSameOrBefore(toDate));
+                new_copy_data = new_copy_data.filter(val => moment(val.closing_date, 'DD-MM-YYYY').isSameOrBefore(moment(toDate, 'DD-MM-YYYY')));
               }
             } 
             else if (key === "selectedJobTitles") {

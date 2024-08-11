@@ -14,7 +14,7 @@ class JobOpenings(Base):
     no_of_positions = Column(BigInteger)
     assigned_recruiter = Column(String(50))
     job_opening_status = Column(String(50))
-    date_opened = Column(String(255), default=datetime.now().strftime("%d-%m-%Y"))
+    date_opened = Column(String(255))
     closing_date = Column(String(255))
     salary = Column(String(20))
     email = Column(String(256))

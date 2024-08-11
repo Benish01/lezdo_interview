@@ -44,7 +44,7 @@ const CreateJob = () => {
         { label: "Hiring Manager:", field_type: "select" , key:'hiring_manager', state_key:CreateJobHiringManagers},
         { label: "Assigned Recruiter(s):", field_type: "input", key:'assigned_recruiter' },
         { label: "Job Type:", field_type: "select" , key:'job_type', state_key:CreateJobType},
-        { label: "Job Opening Status:", field_type: "select", key:'job_opening_status', state_key: CreateJobOpeningStatus},
+        { label: "Job Opening Status:", field_type: "select", key:'job_opening_status', state_key: CreateJobOpeningStatus, required:true},
         { label: "Work Experience:", field_type: "select" , key:'experience', state_key:CreateJobWorkExperience},
         { label: "Date Opened:", field_type: "date" , key:'date_opened'},
         { label: "Closing Date:", field_type: "date", key:'closing_date' },
@@ -225,9 +225,10 @@ const CreateJob = () => {
                                                     const formattedDate = date ? moment(date).format('DD-MM-YYYY') : '';
                                                     getInputs(formattedDate, item.key, "job_opening_details");
                                                 }}
-                                                value={jobdetails.job_opening_details?.[item.key] ? moment(jobdetails.job_opening_details[item.key]) : null}
+                                                // value={jobdetails.job_opening_details?.[item.key] ? moment(jobdetails.job_opening_details[item.key]) : null}
+                                                defaultValue={item.key === 'date_opened' ? moment() : undefined}
                                                 maxDate={item.key === 'date_opened' ? moment() : undefined}
-                                                minDate={item.key == 'closing_date' ? moment(jobdetails.job_opening_details?.['date_opened']) : undefined}
+                                                minDate={item.key == 'closing_date' ? moment(jobdetails.job_opening_details?.['date_opened'] , 'DD-MM-YYYY') : undefined}
             
                                             
                                             />   

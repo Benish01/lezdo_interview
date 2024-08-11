@@ -11,13 +11,13 @@ class JobOpeningCreate(BaseModel):
     job_title: str
     job_opening_id : Optional[str] = None
     department : Optional[str] = None
-    no_of_positions: int = None
+    no_of_positions: Optional[int] = None
     assigned_recruiter: Optional[str] = None
-    job_opening_status: Optional[str]
-    date_opened: Optional[Any] = Field(default_factory=date.today)
+    job_opening_status: Optional[str] = None
+    date_opened: Optional[Any] = None
     closing_date: Optional[Any] = None
     salary: Optional[str] = None
-    email: Optional[EmailStr]  = None
+    email: Optional[str]  = None
     hiring_manager: Optional[str] = None
     job_type: Optional[str] = None
     experience: Optional[str] = None
@@ -46,15 +46,6 @@ class JobOpeningCreate(BaseModel):
 
 
     model_config = ConfigDict(from_attributes=True)
-
-    @field_validator('date_opened', 'closing_date')
-    def parse_dates(cls, value):
-        if isinstance(value, str):
-            try:
-                return parser.parse(value).date()
-            except ValueError:
-                raise ValueError(f"Invalid date format for {value}")
-        return value
 
 
 

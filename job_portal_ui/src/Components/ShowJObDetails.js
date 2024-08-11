@@ -239,7 +239,7 @@ const ShowJObDetails = ({ job_info, setjob_info }) => {
                         </Typography>
                         <Button
                             variant="contained"
-                            color="success"
+                            color={job_info.current_status == 'cancelled' ? "error" : 'success'}
                             sx={{ borderRadius: '25px', height: '33px', marginLeft: '20px',  }}
                             onClick={()=>changeJobEditStatus()}
                         >

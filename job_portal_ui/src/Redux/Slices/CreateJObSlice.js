@@ -38,7 +38,7 @@ const initialState = {
     CreateJobSkills:[{label:"HTML", code:'html'},{label:"CSS", code:'css'}, {label:"Java Script", code:'java_script'},{label:"React", code:'react'}, {label:"Python", code:'python'},{label:"Flask", code:'flask'}   ],
 
 
-    CreateJobRequiredFields : ['job_title'],
+    CreateJobRequiredFields : ['job_title', 'job_opening_status'],
 
     updateJob:{}
  

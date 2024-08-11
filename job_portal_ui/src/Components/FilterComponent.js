@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, Checkbox, FormControlLabel, FormGroup, InputAdornment, TextField, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, Checkbox, FormControlLabel, FormGroup, InputAdornment, Tab, Tabs, TextField, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux";
 import { changeTableSlice } from "../Redux/Slices/TableSlice";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -99,6 +99,46 @@ const FilterComponent = ({type, onChange = ()=>{}, handleFilterClicked = ()=>{},
                 }
             
             </div>
+
+            // <Box 
+            //     sx={{ 
+            //         width: '100%', 
+            //         borderBottom: 1, 
+            //         borderColor: 'divider', 
+            //         ...(type === 'job_details_filter' && { borderTop: '1px solid #E6E6E6', borderRight: '1px solid #E6E6E6' })
+            //     }}
+            //     >
+            //     <Tabs
+            //         value={index}
+            //         onChange={(event, newValue) => handleFilterClick(newValue)}
+            //         aria-label="filter tabs"
+            //         sx={{ 
+            //         '& .MuiTab-root': {
+            //             color: 'primary.dark',
+            //             transition: 'border 0.2s ease-out',
+            //         },
+            //         '& .Mui-selected': {
+            //             color: 'primary.main',
+            //             borderBottom: '2px solid',
+            //         },
+            //         }}
+            //     >
+            //         {filter_type.map((val, idx) => (
+            //         <Tab
+            //             key={idx}
+            //             label={<Typography variant={type === 'header_filter' ? 'jost_14_medium' : 'jost_16_medium'}>{val.label}</Typography>}
+            //             value={idx}
+            //             sx={{
+            //             borderBottom: idx === index ? '2px solid' : 'none',
+            //             borderRight: type === 'job_details_filter' ? '1px solid #E6E6E6' : 'none',
+            //             borderTop: type === 'job_details_filter' ? '1px solid #E6E6E6' : 'none',
+            //             }}
+            //         />
+            //         ))}
+            //     </Tabs>
+            //     </Box>
+
+            
             }
 
             {type == 'side_filter' && 
@@ -123,15 +163,15 @@ const FilterComponent = ({type, onChange = ()=>{}, handleFilterClicked = ()=>{},
                                 label={" Start Date"}  
                                 onChange={(e)=>handlesidefilterChange('fromDate', e)} 
                                 format="DD/MM/YY"
-                                value={moment(sideFilterState.DateRange?.fromDate) }
+                                value={sideFilterState.DateRange?.fromDate ? moment(sideFilterState.DateRange.fromDate, 'DD-MM-YYYY') : null }
                                 
                                 />  :
                                 <DatePicker
                                 label={"End Date"}  
                                 onChange={(e) => handlesidefilterChange('toDate', e)}
-                                minDate={moment(sideFilterState.DateRange?.fromDate)}
+                                minDate={moment(sideFilterState.DateRange?.fromDate, 'DD-MM-YYYY')}
                                 format="DD/MM/YY"
-                                value={moment(sideFilterState.DateRange?.toDate)}
+                                value={sideFilterState.DateRange?.toDate ? moment(sideFilterState.DateRange.toDate, 'DD-MM-YYYY') : null}
                             /> }  
                         </LocalizationProvider> 
 
