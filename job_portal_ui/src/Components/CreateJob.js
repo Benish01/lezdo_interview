@@ -46,7 +46,7 @@ const CreateJob = () => {
         { label: "Job Type:", field_type: "select" , key:'job_type', state_key:CreateJobType},
         { label: "Job Opening Status:", field_type: "select", key:'job_opening_status', state_key: CreateJobOpeningStatus, required:true},
         { label: "Work Experience:", field_type: "select" , key:'experience', state_key:CreateJobWorkExperience},
-        { label: "Date Opened:", field_type: "date" , key:'date_opened'},
+        { label: "Date Opened:", field_type: "date" , key:'date_opened', required:true},
         { label: "Closing Date:", field_type: "date", key:'closing_date' },
         { label: "Salary", field_type: "select" , key:'salary', state_key:CreateJobSalary},
         { label: "Skills Required:", field_type: "select", key:'skills_required', state_key : CreateJobSkills }

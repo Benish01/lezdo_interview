@@ -1,6 +1,7 @@
 
 
 
+import { Label } from "@mui/icons-material";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
@@ -10,6 +11,30 @@ const initialState = {
     ListJobs:false,
     CreateJobs : false,
     DrawerWidth : 240,
+    HeaderMenu:false,
+    HeaderMenus:[
+        {
+        label : 'Job Opening', key:'job_opening'
+        },
+        {
+            label : 'Candidate', key:'candidate'
+        },
+        {
+            label : 'Job Applications', key:'job_applications'
+        },
+        {
+            label : 'Interview', key:'interview'
+        },
+        {
+            label : 'Assessment', key:'assessment'
+        },
+        {
+            label : 'Offer', key:'offer'
+        },
+        {
+            label : 'Department', key:'department'
+        }
+]
 }
 const HeaderSlice = createSlice({
     name: 'header',
