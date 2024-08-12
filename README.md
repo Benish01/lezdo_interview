@@ -40,7 +40,7 @@ Steps to Run the Fast api
   - to intsall the dependencies run the command `pip install -r requirements.txt`   
   - after installing all the dependencies, start the app by running
         - `python main.py`    #windows
-        - `python3 main.py`   #linus
+        - `python3 main.py`   #linux
 
 
 Steps To Start the React App
