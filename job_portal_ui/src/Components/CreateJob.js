@@ -129,7 +129,7 @@ const CreateJob = () => {
                 container
                 spacing={2}
                 justifyContent="space-between"
-                sx={{ background: '#F6F6F6', padding: '20px 10px', position:'sticky', zIndex:2, top:64 }}
+                sx={{ background: '#F6F6F6', padding: '20px 10px', position:'sticky', zIndex:5, top:64 }}
                 
             >
 

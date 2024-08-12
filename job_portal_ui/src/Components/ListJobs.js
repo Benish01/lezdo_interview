@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import CustomDataTable from "./CustomComonents/CustomTable"
-import { Box, IconButton, Typography } from "@mui/material"
+import { Box, Button, IconButton, Typography } from "@mui/material"
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { useDispatch, useSelector } from "react-redux";
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
@@ -11,6 +11,7 @@ import { hasKeyWithValue, to_code_str, to_readable_str } from "../Common/helper"
 import moment from "moment";
 import ShowJObDetails from "./ShowJObDetails";
 import { call_api } from "../Common/fetch_helper";
+import AddIcon from '@mui/icons-material/Add';
 
 
 
@@ -173,6 +174,10 @@ const ListJob = ()=>{
     setjob_info(data)
   }
 
+  const create_job = ()=>{
+    dispatch(changeHeaderSlice({CreateJobs:true}))
+  }
+
 
     return(
         <React.Fragment>
@@ -204,6 +209,7 @@ const ListJob = ()=>{
                         </>
                     }
                     </Box>
+                    <Box sx={{ml:'auto', pr:3}}><Button variant='app_button' sx={{borderRadius:'5px', height:'33px'}} startIcon={<AddIcon/>} onClick={()=>create_job()}>Create Opening</Button></Box>
                 </Box>
             
                 <div className="d-flex  w-100">

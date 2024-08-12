@@ -158,22 +158,24 @@ const FilterComponent = ({type, onChange = ()=>{}, handleFilterClicked = ()=>{},
                         </AccordionSummary>
                         <AccordionDetails>
 
-                         <LocalizationProvider dateAdapter={AdapterMoment}>
-                           { !sideFilterState.DateRange?.fromDate ? <DatePicker
+                         <Box>
+                           { !sideFilterState.DateRange?.fromDate ? 
+                           <LocalizationProvider dateAdapter={AdapterMoment}>
+                           <DatePicker
                                 label={" Start Date"}  
                                 onChange={(e)=>handlesidefilterChange('fromDate', e)} 
                                 format="DD/MM/YY"
                                 value={sideFilterState.DateRange?.fromDate ? moment(sideFilterState.DateRange.fromDate, 'DD-MM-YYYY') : null }
                                 
-                                />  :
-                                <DatePicker
+                                />  </LocalizationProvider>  :
+                                <LocalizationProvider dateAdapter={AdapterMoment}>  <DatePicker
                                 label={"End Date"}  
                                 onChange={(e) => handlesidefilterChange('toDate', e)}
                                 minDate={moment(sideFilterState.DateRange?.fromDate, 'DD-MM-YYYY')}
                                 format="DD/MM/YY"
                                 value={sideFilterState.DateRange?.toDate ? moment(sideFilterState.DateRange.toDate, 'DD-MM-YYYY') : null}
-                            /> }  
-                        </LocalizationProvider> 
+                            />  </LocalizationProvider> }  
+                       </Box>
 
                         {
                             sideFilterState.DateRange?.fromDate && <div className="d-flex  px-2">

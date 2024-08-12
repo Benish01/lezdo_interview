@@ -123,7 +123,7 @@ const SideBar = () => {
             height: '70px',
             padding: '10px',
             transition: 'padding 0.3s',
-            mb:1
+            
           }}
         >
           {
@@ -133,7 +133,7 @@ const SideBar = () => {
               alt="Logo"
               style={{
                 height: '48px',
-                // width: 'auto',
+                width: 'auto',
                 transition: 'height 0.3s',
                 marginLeft: DrawerState ? 0 : 'auto',
                 marginRight: DrawerState ? 0 : 'auto',
@@ -144,7 +144,7 @@ const SideBar = () => {
               alt="Logo"
               style={{
                 height: '48px',
-                // width: 'auto',
+                width: 'auto',
                 transition: 'height 0.3s',
                 marginLeft: DrawerState ? 0 : 'auto',
                 marginRight: DrawerState ? 0 : 'auto',
@@ -161,7 +161,7 @@ const SideBar = () => {
                 minHeight: 48,
                 justifyContent: DrawerState ? 'initial' : 'center',
                 px: 2.5,
-                py:1.5
+                // py:1.5
               }}
               onClick = {()=>handleMenuClick(idx, val.link)}
             >

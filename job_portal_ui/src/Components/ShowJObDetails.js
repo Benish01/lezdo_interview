@@ -292,7 +292,7 @@ const ShowJObDetails = ({ job_info, setjob_info }) => {
             </div>
            </div>
 
-          <Box sx={{px:{sm:1, md:2, lg:3}}}>
+          <Box sx={{px:{sm:1, md:2, lg:3}, py:2}}>
           <div className='d-flex align-items-center mt-3 p-2 px-3   min_width'  >
                 <Typography variant="jost_16_medium" onClick={() => setactive_filter("overview")} sx={active_filter == "overview" ? active_style : { mx: 2, cursor: 'pointer' }} component="div">
                     Overview

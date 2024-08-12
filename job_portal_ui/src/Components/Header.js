@@ -11,6 +11,9 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeHeaderSlice } from '../Redux/Slices/HeaderSlice';
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 
 
@@ -84,23 +87,23 @@ const Header = ()=>{
                             
                             <IconButton
                                 size="large"
+                                edge="end"
     
                             >
-                            
-                                <NotificationsNoneOutlinedIcon  fontSize='large' sx={{color:theme.palette.primary.dark}}/>
+                        
+                                 <IoNotificationsOutline size={30}  color={theme.palette.primary.dark}/>
                             </IconButton>
                             <IconButton
                                 size="large"
                                 edge="end"
                                 >
-                                <SettingsOutlinedIcon fontSize='large' sx={{color:theme.palette.primary.dark}}/>
+                                 <IoSettingsOutline size={30}  color={theme.palette.primary.dark}/>
                             </IconButton>
                             <IconButton
                                 size="large"
                                 edge="end"
                                 >
-                                {/* <AccountCircle  fontSize='large'/> */}
-                                <Avatar sx={{color:theme.palette.primary.dark}}/>
+                                <Avatar   sx={{color:theme.palette.primary.dark}}/>
                             </IconButton>
                         </Box>
             

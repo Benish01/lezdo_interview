@@ -21,7 +21,7 @@ const CustomToolbar = () => {
   return (
     <GridToolbarContainer >
       <Box sx={{ display: 'flex', alignItems: 'center',  width: '100%' }}>
-      <Box sx={{width:'25vw' , ml:3}}>
+      <Box sx={{width:'20vw', ml:1}}>
                         <TextField
                             id="header_serach"
                             placeholder='Search here'
@@ -40,8 +40,6 @@ const CustomToolbar = () => {
                             sx:{
                                 borderRadius:'5px',
                                 height:'40px',
-                                
-                                
                             }
                             }}
                             variant="outlined"
@@ -50,16 +48,17 @@ const CustomToolbar = () => {
                     </Box>
         <Box sx={{ display: 'flex', flex:1, justifyContent: 'end', gap: 1 }}>
           <GridPagination/>
-          <GridToolbarColumnsButton  slotProps={{
+          <GridToolbarFilterButton   slotProps={{
+              button: {
+                sx: { color: theme.palette.primary.dark } 
+              },
+            }}/>
+          <GridToolbarColumnsButton   slotProps={{
               button: {
                 sx: { color: theme.palette.primary.dark } 
               }
             }}/>
-          <GridToolbarFilterButton  slotProps={{
-              button: {
-                sx: { color: theme.palette.primary.dark } 
-              }
-            }}/>
+          
           <GridToolbarDensitySelector  slotProps={{
               button: {
                 sx: { color: theme.palette.primary.dark } 
