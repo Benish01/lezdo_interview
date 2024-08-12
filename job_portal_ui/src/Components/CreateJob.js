@@ -225,8 +225,6 @@ const CreateJob = () => {
                                                     const formattedDate = date ? moment(date).format('DD-MM-YYYY') : '';
                                                     getInputs(formattedDate, item.key, "job_opening_details");
                                                 }}
-                                                // value={jobdetails.job_opening_details?.[item.key] ? moment(jobdetails.job_opening_details[item.key]) : null}
-                                                defaultValue={item.key === 'date_opened' ? moment() : undefined}
                                                 maxDate={item.key === 'date_opened' ? moment() : undefined}
                                                 minDate={item.key == 'closing_date' ? moment(jobdetails.job_opening_details?.['date_opened'] , 'DD-MM-YYYY') : undefined}
             
