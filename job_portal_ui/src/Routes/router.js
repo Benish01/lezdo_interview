@@ -13,6 +13,42 @@ const router = createBrowserRouter([
             {
                 path:'/job_openings',
                 element:<JobOpenings/>
+            },
+            {
+                path:'/candidates',
+                element:<></>
+            },
+            {
+                path:'/job_applications',
+                element:<></>
+            },
+            {
+                path:'/interviews',
+                element:<></>
+            },
+            {
+                path:'/assessments',
+                element:<></>
+            },
+            {
+                path:'/offers',
+                element:<></>
+            },
+            {
+                path:'/departments',
+                element:<></>
+            },
+            {
+                path:'/vendors',
+                element:<></>
+            },
+            {
+                path:'/refferals',
+                element:<></>
+            },
+            {
+                path:'/to_do_s',
+                element:<></>
             }
         ]
         

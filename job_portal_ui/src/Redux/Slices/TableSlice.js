@@ -103,7 +103,10 @@ const initialState = {
         { label: "Graphics Designer", code: "graphics_designer" },
         { label: "Junior Developer", code: "junior_developer" },
         { label: "Frontend Developer", code: "frontend_developer" },
-        { label: "Backend Developer", code: "backend_developer" }]
+        { label: "Backend Developer", code: "backend_developer" }],
+    ImportModal:false,
+    ImportColumnDatas : null,
+    ImportRowDatas : null
 }
 const TableSlice = createSlice({
     name: 'table_slice',

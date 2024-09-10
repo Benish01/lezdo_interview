@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react"
 import CustomDataTable from "./CustomComonents/CustomTable"
-import { Box, Button, IconButton, Typography } from "@mui/material"
+import { Box, Button, Grid, IconButton, Typography } from "@mui/material"
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { useDispatch, useSelector } from "react-redux";
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
 import { changeHeaderSlice } from "../Redux/Slices/HeaderSlice";
 import { changeTableSlice } from "../Redux/Slices/TableSlice";
 import FilterComponent from "./FilterComponent";
-import { hasKeyWithValue, to_code_str, to_readable_str } from "../Common/helper";
+import { generate_columns_for_imported_data, hasKeyWithValue, is_csv_file, to_code_str, to_readable_str } from "../Common/helper";
 import moment from "moment";
 import ShowJObDetails from "./ShowJObDetails";
 import { call_api } from "../Common/fetch_helper";
 import AddIcon from '@mui/icons-material/Add';
+import CustomModal from "./CustomComonents/CustomModal";
+import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from "@emotion/react";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import Papa from 'papaparse'
 
 
 
@@ -19,8 +24,10 @@ import AddIcon from '@mui/icons-material/Add';
 const ListJob = ()=>{
 
   const dispatch = useDispatch()
-  const {addFilter, HeaderFilters, sideFilterState, JobTitlesCopy, JobTitles} = useSelector(state=>state.TableSlice)
+  const {addFilter, HeaderFilters, sideFilterState, JobTitlesCopy, JobTitles, ImportModal, ImportRowDatas, ImportColumnDatas} = useSelector(state=>state.TableSlice)
   const [job_info,setjob_info] = useState(false)
+  const theme = useTheme();
+
 
   const title_style = {
     display:'flex',
@@ -36,7 +43,7 @@ const ListJob = ()=>{
     const [copy_data, setCopy_data] = useState([...row_data])
 
 
-    const column_data = [
+    const [column_data, set_column_data ]= useState([
             { field: 'job_title', headerName: 'Job Title', valueFormatter : (value)=>to_readable_str(value)},
             { field: 'job_opening_id', headerName: 'Job Opening ID ',  },
             { field: 'department', headerName: 'Department',  },
@@ -44,21 +51,25 @@ const ListJob = ()=>{
             { field: 'hiring_manager',headerName: 'Hiring Manager',},
             { field: 'date_opened', headerName: 'Posted Date', valueFormatter : (value)=>moment(value, 'DD-MM-YYYY').format('DD/MM/YY')},
             { field: 'closing_date',headerName: 'Expiry Date', valueFormatter : (value)=>moment(value, 'DD-MM-YYYY').format('DD/MM/YY')},
-            { field: 'current_status', headerName: 'Status', valueFormatter : (value)=>to_readable_str(value) }]
+            { field: 'current_status', headerName: 'Status', valueFormatter : (value)=>to_readable_str(value) }])
 
 
     useEffect(()=>{
-      get_jobs()
-    }, [])
+      if(ImportRowDatas){
+        setRowdata(ImportRowDatas)
+        setCopy_data(ImportRowDatas)
+        set_column_data(ImportColumnDatas)
+      }
+      else{
+        get_jobs()
+      }
+    }, [ImportRowDatas, ImportColumnDatas])
 
     const get_jobs = async()=>{
       const response = await call_api('/job_opening/all', null, 'get')
       if(response.status == 'success'){
         setRowdata(response.data)
         setCopy_data(response.data)
-
-        // const job_titles = response.data?.length  >0  &&  response.data.map((val,idx)=> ({label:to_readable_str(val.job_title), code:to_code_str(val.job_title)}))
-        // dispatch(changeTableSlice({JobTitles:job_titles, JobTitlesCopy:job_titles}))
       }
     }
 
@@ -80,11 +91,6 @@ const ListJob = ()=>{
     const onSidefilterChange = (state_key, val, checked_state) =>{
 
         var side_state = {...sideFilterState}
-        // if(state_key !== "selectedJobTitles"){
-        //   side_state[state_key] = val
-
-        //   dispatch(changeTableSlice({sideFilterState:side_state}))
-        // }
 
        
         if (state_key === 'fromDate' || state_key === 'toDate') {
@@ -178,6 +184,11 @@ const ListJob = ()=>{
     dispatch(changeHeaderSlice({CreateJobs:true}))
   }
 
+  
+  
+
+ 
+
 
     return(
         <React.Fragment>
@@ -220,11 +231,14 @@ const ListJob = ()=>{
                   )}
                   <div className={addFilter ? 'col-10' : 'col-12'}>
                   <FilterComponent type={'header_filter'} onChange={onHeaderfilterChange}/>
-                    <CustomDataTable row_data={copy_data} column_data={column_data} show_job_details ={(data)=>showJobDetails(data)}/>
+                    {
+                    <CustomDataTable row_data={copy_data} column_data={column_data} show_job_details ={(data)=>showJobDetails(data)}/>}
                   </div>
                 </div>
               </>
               }
+
+              
 
 
         </React.Fragment>

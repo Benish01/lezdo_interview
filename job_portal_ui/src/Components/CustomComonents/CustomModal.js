@@ -3,7 +3,7 @@ import { Box, Modal } from "@mui/material"
 
 
 
-const CustomModal = ({open, onClose = ()=>{}, ModalComponent})=>{
+const CustomModal = ({open, onClose = ()=>{}, ModalComponent, modalWidth = 400})=>{
 
 
     const handleClose = ()=>{
@@ -24,7 +24,7 @@ const CustomModal = ({open, onClose = ()=>{}, ModalComponent})=>{
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                // width: 400,
+                width: modalWidth,
                 bgcolor: 'background.paper',
                 // border: '2px solid #000',
                 boxShadow: 24,

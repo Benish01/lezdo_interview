@@ -12,7 +12,7 @@ from dummy_data import and_dummy_data
 
 if __name__ == "__main__":
     try:
-        Base.metadata.create_all(bind = engine)
+        # Base.metadata.create_all(bind = engine)
         # and_dummy_data(db=get_db())
         pass
     except Exception as e:

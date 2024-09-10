@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Box, InputAdornment, TextField } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridPagination } from '@mui/x-data-grid';
 import { useTheme } from '@emotion/react';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTableSlice } from '../../Redux/Slices/TableSlice';
+import ReplyTwoToneIcon from '@mui/icons-material/ReplyTwoTone';
+import { AiOutlineImport } from "react-icons/ai";
 
 
 
@@ -17,11 +19,16 @@ const CustomToolbar = () => {
 
   const {TableHeadSerachText, HeaderFilters, headerFilteridx} = useSelector(state=>state.TableSlice)
 
+
+  const handleImportModal = (option)=>{
+    dispatch(changeTableSlice({ImportModal:option}))
+  }
+
   
   return (
     <GridToolbarContainer >
       <Box sx={{ display: 'flex', alignItems: 'center',  width: '100%' }}>
-      <Box sx={{width:'20vw', ml:1}}>
+      <Box sx={{width:{lg:'25vw', md:'20vw'}, ml:1, display:'flex', alignItems:'center'}}>
                         <TextField
                             id="header_serach"
                             placeholder='Search here'
@@ -45,6 +52,7 @@ const CustomToolbar = () => {
                             variant="outlined"
                             onChange={(e)=>dispatch(changeTableSlice({TableHeadSerachText:e.target.value}))}
                         />
+                        <Button  sx={{py:0, ml:1, background:'#F2F2F2'}} onClick={()=>handleImportModal(true)}><IconButton><AiOutlineImport size={20}/></IconButton><Typography sx={{color:'primary.dark'}} variant='jost_14_regular'>Import</Typography></Button>
                     </Box>
         <Box sx={{ display: 'flex', flex:1, justifyContent: 'end', gap: 1 }}>
           <GridPagination/>
@@ -88,10 +96,10 @@ const CustomDataTable = ({ row_data, column_data, default_page_size = 5, check_b
 
   const columnData = useMemo(() => column_data.map((column) => ({
     ...column,
-    flex: 1,
+    width: column.width || 200,
     headerAlign: 'center',
     align: 'center',
-  })), [column_data,]);
+  })), [column_data]);
 
   const {TableHeadSerachText} = useSelector(state=>state.TableSlice)
 
@@ -122,10 +130,11 @@ const CustomDataTable = ({ row_data, column_data, default_page_size = 5, check_b
   const pageSizeOptions = [5, 10, 20, 50];
 
   return (
-    <div style={{ width: '100%', maxHeight: 500, }}>
+    <div style={{ width: '100%' }}>
       <DataGrid
         rows={filteredData}
         columns={columnData}
+        autoHeight={false}
         slots={{
           toolbar: CustomToolbar,
         }}
@@ -145,7 +154,10 @@ const CustomDataTable = ({ row_data, column_data, default_page_size = 5, check_b
         disableColumnResize = {disable_column_resize}
         disableColumnMenu = {disable_column_menu}
         
-
+        style={{
+          height:'400px',
+          minHeight:'400px'
+        }}
         
       />
     </div>

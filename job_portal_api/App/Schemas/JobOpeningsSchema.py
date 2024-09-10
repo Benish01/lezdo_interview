@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, EmailStr, ConfigDict, model_validator, field_validator
 from typing import Optional, List, Dict, Any
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import uuid
 from dateutil import parser
 
@@ -15,7 +15,7 @@ class JobOpeningCreate(BaseModel):
     assigned_recruiter: Optional[str] = None
     job_opening_status: Optional[str] = None
     date_opened: Optional[Any] = None
-    closing_date: Optional[Any] = None
+    closing_date: Optional[Any] = (datetime.now() + timedelta(days=5)).strftime("%d-%m-%Y")
     salary: Optional[str] = None
     email: Optional[str]  = None
     hiring_manager: Optional[str] = None

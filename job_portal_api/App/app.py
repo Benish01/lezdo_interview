@@ -21,3 +21,4 @@ app.add_middleware(
 )
 
 app.include_router(job_opening_router, dependencies=[Depends(get_db)])
+app.include_router(common_router)

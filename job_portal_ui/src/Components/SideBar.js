@@ -1,23 +1,14 @@
-import React, { useState } from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Box, ListItemButton, Typography } from '@mui/material';
-import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import React, { useEffect, useState } from 'react';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, ListItemButton, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeHeaderSlice } from '../Redux/Slices/HeaderSlice';
 import { useTheme } from '@emotion/react';
-import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import { useNavigate } from 'react-router';
-import { MdOutlineDashboard } from "react-icons/md";
-import { RiDashboardLine } from "react-icons/ri";
-import { TbLayoutDashboard } from "react-icons/tb";
+import { useLocation, useNavigate } from 'react-router';
 import { PiSuitcaseSimpleThin } from "react-icons/pi";
-import { GrUserManager } from "react-icons/gr";
-import { GrGroup } from "react-icons/gr";
 import { TbCheckbox } from "react-icons/tb";
 import { IoMailOpenOutline } from "react-icons/io5";
 import { PiBuildingApartmentLight } from "react-icons/pi";
 import { TbUserDollar } from "react-icons/tb";
-import { LiaClipboardListSolid } from "react-icons/lia";
 import { TbClipboardList } from "react-icons/tb";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { CiGrid42 } from "react-icons/ci";
@@ -29,88 +20,94 @@ const SideBar = () => {
 
   const {DrawerState, selectedMenuIdx, DrawerWidth} = useSelector(state=>state.HeaderSlice);
 
+  const [active_path , set_active_path] = useState('/job_openings')
+
   const theme = useTheme();
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate()
 
+  const location = useLocation();
+
   const handleMenuClick = (idx, navigate_to = '/')=>{
     dispatch(changeHeaderSlice({selectedMenuIdx:idx}))
+    set_active_path(navigate_to)
     navigate(navigate_to)
   }
 
   const drawerList = [
     {
       text: 'Home',
-      // icon: <DashboardOutlinedIcon />,
       icon: <CiGrid42 strokeWidth={0.1} size={25}/>,
       link:'/'
     },
     {
       text: 'Job Openings',
-      // icon: <BusinessCenterOutlinedIcon />,
       icon:<PiSuitcaseSimpleThin strokeWidth={2} size={25}/>,
       link:'/job_openings'
     },
     {
       text: 'Candidates',
-      // icon: <GroupsOutlinedIcon />,
       icon:<HiOutlineUserGroup size={25} strokeWidth={1.5}/>,
-      link:'/'
+      link:'/candidates'
     },
     {
       text: 'Job Applications',
-      // icon: <DashboardOutlinedIcon />,
       icon:<CiUser strokeWidth={0.3} size={25}/>,
-      link:'/'
+      link:'/job_applications'
     },
     {
       text: 'Interviews',
       icon: <CiGrid42  size={25} strokeWidth={0.4}/>,
-      link:'/'
+      link:'/interviews'
     },
     {
       text: 'Assessments',
-      // icon: <DashboardOutlinedIcon />,
       icon:<TbCheckbox strokeWidth={1.5} size={25}/>,
-      link:'/'
+      link:'/assessments'
     },
     {
       text: 'Offers',
-      // icon: <DashboardOutlinedIcon />,
       icon:<IoMailOpenOutline strokeWidth={1.5} size={25}/>,
-      link:'/'
+      link:'/offers'
     },
     {
       text: 'Departments',
-      // icon: <DashboardOutlinedIcon />,
       icon:<PiBuildingApartmentLight strokeWidth={1.5} size={25}/>,
-      link:'/'
+      link:'/departments'
     },
     {
       text: 'Vendors',
-      // icon: <DashboardOutlinedIcon />,
       icon:<TbUserDollar strokeWidth={1.5} size={25}/>,
-      link:'/'
+      link:'/vendors'
     },
     {
       text: 'Refferals',
-      // icon: <DashboardOutlinedIcon />,
       icon:<AiOutlineUsergroupAdd strokeWidth={1.5} size={25}/>,
-      link:'/'
+      link:'/refferals'
     },
     {
       text: "To do's",
-      // icon: <DashboardOutlinedIcon />,
       icon:<TbClipboardList strokeWidth={1.5} size={25}/>,
-      link:'/'
+      link:'/to_do_s'
     }
   ];
 
   const handleMouse = (open) => {
     dispatch(changeHeaderSlice({DrawerState:open}));
   };
+
+  useEffect(()=>{
+    drawerList.map((val, idx)=>{
+      if(val.link == location.pathname){
+        dispatch(changeHeaderSlice({selectedMenuIdx:idx}))
+        return
+      }
+    })
+  }, [location])
+
+  
 
   const getDrawerList = () => {
     return (
@@ -155,7 +152,10 @@ const SideBar = () => {
 
         <List>
         {drawerList.map((val, idx) => (
-          <ListItem key={idx} disablePadding sx={{ display: 'block' , backgroundColor: selectedMenuIdx == idx ? theme.palette.secondary.main : null, color: selectedMenuIdx == idx ? theme.palette.primary.contrastText : theme.palette.primary.dark}}>
+          <ListItem key={idx} disablePadding sx={{ display: 'block' , 
+                backgroundColor: selectedMenuIdx == idx ? theme.palette.secondary.main : null, color: selectedMenuIdx == idx ? theme.palette.primary.contrastText : theme.palette.primary.dark
+                // backgroundColor: active_path == val.link? theme.palette.secondary.main : null, color: active_path == val.link ? theme.palette.primary.contrastText : theme.palette.primary.dark
+                }}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -192,16 +192,6 @@ const SideBar = () => {
         open={DrawerState}
         onMouseEnter={() => handleMouse(true)}
         onMouseLeave={() => handleMouse(false)}
-        // sx={{
-        //   width: DrawerState ? 240 : 60,
-        //   transition: 'width 0.3s',
-        //   '& .MuiDrawer-paper': {
-        //     width: DrawerState ? 240 : 60,
-        //     transition: 'width 0.3s',
-        //     overflowX: 'hidden',
-        //     boxSizing: 'border-box',
-        //   },
-        // }}
         sx={{
           width: DrawerState ? DrawerWidth : '64px',
           flexShrink: 0,

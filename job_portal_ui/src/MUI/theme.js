@@ -62,6 +62,18 @@ export const customTheme = (mode="light")=>{
                         }
                     },
                     
+                    {
+                        props: { variant: 'grey_buuton'},
+                        style: { backgroundColor:theme.palette.primary.light, color:theme.palette.primary.dark, 
+                            boxShadow:"0 0 0 2px rgba(0, 0, 0, 0.1)",
+                            borderRadius:'5px',
+                            '&:hover':{
+                                backgroundColor:theme.palette.extra_colors.disabled_button_bg,
+                                
+                            }
+                        }
+                    },
+                    
                     
                 
             ]
