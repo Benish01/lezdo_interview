@@ -19,4 +19,4 @@ COPY . /app
 
 # RUN alembic upgrade head
 
-CMD ["fastapi", "run", "/app/main.py", "--port", "80"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]

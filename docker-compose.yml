@@ -1,0 +1,51 @@
+
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    env_file:
+      - ./job_portal_api/.env
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+  
+  fastapi:
+    build:
+      context: ./job_portal_api
+      dockerfile: Dockerfile
+    container_name: job_portal_api
+    ports:
+      - "5049:80"
+    env_file:
+      - ./job_portal_api/.env
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  react_app:
+    build:
+      context: ./job_portal_ui
+      dockerfile: Dockerfile
+    container_name: react_app
+    ports:
+      - "3001:3000"
+    environment:
+      REACT_APP_URL: http://fastapi:80
+
+
+
+
+volumes:
+  mysql_data:
+
+networks:
+  backend:
+    driver: bridge
+
+
+
